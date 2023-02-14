@@ -1,0 +1,108 @@
+body {
+  background-image: url(src/body-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  padding: 20px 1px;
+  margin: 50px auto;
+  border: black 2px solid;
+  border-radius: 10px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Rowdies', cursive;
+  background-color: #f0efeb;
+  position: relative;
+}
+
+.current-temp {
+  font-size: 70px;
+  font-weight: 700;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.forecast {
+  position: relative;
+  margin-top: 5px;
+}
+
+.days {
+  text-decoration: none;
+  text-align: center;
+  color: #5a6275;
+}
+
+.temp-days {
+  text-decoration: none;
+  text-align: center;
+  color: #5a6275;
+}
+
+.weather-symbols {
+  text-decoration: none;
+  text-align: center;
+  font-size: 30px;
+}
+.celsius {
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #3dd5f3;
+}
+.fahrenheit {
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #3dd5f3;
+}
+.tempMeasurements {
+  display: flex;
+  position: relative;
+  top: 1px;
+  left: 0px;
+}
+.currentLocation {
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px 5px 5px auto;
+  background-color: #3dd5f3;
+}
+.tempMeasurements.currentLocation {
+  right: 0px;
+}
+.celsius:hover {
+  background-color: black;
+  color: #3dd5f3;
+}
+.fahrenheit:hover {
+  background-color: black;
+  color: #3dd5f3;
+}
+.currentLocation:hover {
+  background-color: black;
+  color: #3dd5f3;
+}
+
+.weatherinfo {
+  text-align: center;
+}
+h2 {
+  color: #5a6275;
+  font-size: 30px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 70px;
+  text-align: center;
+  top: -5px;
+}
+
+form {
+  text-align: center;
+  position: relative;
+  margin-bottom: 5px;
+}
