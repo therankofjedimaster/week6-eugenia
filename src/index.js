@@ -72,7 +72,13 @@ function currentWeather(response) {
   h1.innerHTML = response.data.name;
   showTemperature(response);
   let emoji = document.querySelector(".emoji");
-  emoji.innerHTML = `${response.data.weather[0].main},`;
+  emoji.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  emoji.setAttribute("alt", response.data.weather[0].description);
+  let description = document.querySelector(".description");
+  description.innerHTML = `${response.data.weather[0].main},`;
   let humidity = document.querySelector(".humidity");
   humidity.innerHTML = `Humidity: ${response.data.main.humidity}% | `;
   let wind = document.querySelector(".wind");
@@ -83,6 +89,7 @@ function currentWeather(response) {
   pressure.innerHTML = `Pressure:${Math.round(
     response.data.main.pressure
   )} hPa`;
+  getForecast(response.data.coord);
 }
 
 function getLocation(position) {
@@ -91,6 +98,48 @@ function getLocation(position) {
   let apiKey = `b6f13b15bc39c8fd600adbc9db22e8c9`;
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(weatherUrl).then(currentWeather);
+}
+
+function displayForecast(response) {
+  console.log("response", response);
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector(".forecast");
+
+  let forecastHTML = `<div class="forecast row">`;
+  forecast.forEach(function (dayTime, index) {
+    if (index < 6) {
+      console.log("dayTime", dayTime);
+      forecastHTML =
+        forecastHTML +
+        `    <div class="col-2">	
+        <div class="days">${formatDay(dayTime.time)}</div>	
+        <img	
+        src="${dayTime.condition.icon_url}"	
+        alt=""	
+        width="42"	
+      />	
+            <div class="temp-days">	
+            <span class="maxTemp">${Math.round(
+          dayTime.temperature.maximum
+        )}°/ </span>	
+            <span class="minTemp">${Math.round(
+          dayTime.temperature.minimum
+        )}° </span>	
+            </div>	
+          </div>       	
+          `;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "9d4d9c743t460of9a295aebfadb92dcc";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function convertToFahrenheit(event) {
@@ -114,3 +163,4 @@ fahrenheitTemp.addEventListener("click", convertToFahrenheit);
 
 let celsiusTemp = document.querySelector(".celsius");
 celsiusTemp.addEventListener("click", convertToCelsius);
+

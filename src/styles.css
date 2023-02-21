@@ -1,5 +1,5 @@
 body {
-  background-image: url(src/body-background.jpg);
+  background-image: url(body-background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -11,7 +11,7 @@ body {
   border-radius: 10px;
   font-family: 'Roboto Condensed', sans-serif;
   font-family: 'Rowdies', cursive;
-  background-color: #f0efeb;
+  background-color: #dfe4e6;
   position: relative;
 }
 
