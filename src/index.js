@@ -1,40 +1,50 @@
-let now = new Date();
+function formatDate(timestamp) {
+  console.log(timestamp);
+  let now = new Date(timestamp);
 
-let hours = now.getHours();
-if (hours < 10) {
-  hours = `0${hours}`;
-}
-let minutes = now.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
+  let hours = now.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  let day = days[now.getDay()];
+  return ` ${day}  ${now.getDate()} ${months[now.getMonth()]}, ${hours} : ${minutes}`;
 }
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
-let dayTime = document.querySelector("h2");
-dayTime.innerHTML = `${days[now.getDay()]}
- ${now.getDate()} ${months[now.getMonth()]}, ${hours} : ${minutes}`;
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
 
 function searchCity(city) {
   let apiKey = "b6f13b15bc39c8fd600adbc9db22e8c9";
@@ -50,8 +60,6 @@ let searchBar = document.querySelector("#search");
 searchBar.addEventListener("submit", handleSubmit);
 
 function showTemperature(response) {
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = `${response.data.name}`;
   let temperature = Math.round(response.data.main.temp);
   let weather = document.querySelector(".temp");
   weather.innerHTML = `${temperature}°C`;
@@ -66,10 +74,13 @@ let getCurrentWeather = document.querySelector(".currentLocation");
 getCurrentWeather.addEventListener("click", displayCurrentWeather);
 
 function currentWeather(response) {
+  console.log("response", response);
   let weather = document.querySelector(".temp");
   weather.innerHTML = ` ${Math.round(response.data.main.temp)}°C`;
   let h1 = document.querySelector("h1");
   h1.innerHTML = response.data.name;
+  let date = document.querySelector(".date");
+  date.innerHTML = formatDate(response.data.dt * 1000);
   showTemperature(response);
   let emoji = document.querySelector(".emoji");
   emoji.setAttribute(
@@ -77,6 +88,7 @@ function currentWeather(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   emoji.setAttribute("alt", response.data.weather[0].description);
+
   let description = document.querySelector(".description");
   description.innerHTML = `${response.data.weather[0].main},`;
   let humidity = document.querySelector(".humidity");
@@ -111,22 +123,22 @@ function displayForecast(response) {
       console.log("dayTime", dayTime);
       forecastHTML =
         forecastHTML +
-        `    <div class="col-2">	
-        <div class="days">${formatDay(dayTime.time)}</div>	
-        <img	
-        src="${dayTime.condition.icon_url}"	
-        alt=""	
-        width="42"	
-      />	
-            <div class="temp-days">	
+        `    <div class="col-2 text-center">
+        <div class="days">${formatDay(dayTime.time)}</div>
+        <img
+        src="${dayTime.condition.icon_url}"
+        alt=""
+        width="42"
+      />
+            <div class="temp-days">
             <span class="maxTemp">${Math.round(
           dayTime.temperature.maximum
-        )}°/ </span>	
+        )}°/ </span>
             <span class="minTemp">${Math.round(
           dayTime.temperature.minimum
-        )}° </span>	
-            </div>	
-          </div>       	
+        )}° </span>
+            </div>
+          </div>       
           `;
     }
   });
@@ -164,3 +176,4 @@ fahrenheitTemp.addEventListener("click", convertToFahrenheit);
 let celsiusTemp = document.querySelector(".celsius");
 celsiusTemp.addEventListener("click", convertToCelsius);
 
+searchCity("Paris");
