@@ -75,6 +75,7 @@ getCurrentWeather.addEventListener("click", displayCurrentWeather);
 
 function currentWeather(response) {
   console.log("response", response);
+  celsiusTemp = response.data.main.temp;
   let weather = document.querySelector(".temp");
   weather.innerHTML = ` ${Math.round(response.data.main.temp)}°C`;
   let h1 = document.querySelector("h1");
