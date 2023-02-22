@@ -35,7 +35,7 @@ function formatDate(timestamp) {
     "December"
   ];
   let day = days[now.getDay()];
-  return ` ${day}  ${now.getDate()} ${months[now.getMonth()]}, ${hours} : ${minutes}`;
+  return ` Last updated ${day}  ${now.getDate()} ${months[now.getMonth()]}, ${hours} : ${minutes}`;
 }
 
 function formatDay(timestamp) {
@@ -62,7 +62,9 @@ searchBar.addEventListener("submit", handleSubmit);
 function showTemperature(response) {
   let temperature = Math.round(response.data.main.temp);
   let weather = document.querySelector(".temp");
-  weather.innerHTML = `${temperature}°C`;
+  weather.innerHTML = `${temperature}`;
+  let unitTemp = document.querySelector(".unit");
+  unitTemp.innerHTML = "°C";
 }
 
 function displayCurrentWeather(event) {
@@ -75,9 +77,9 @@ getCurrentWeather.addEventListener("click", displayCurrentWeather);
 
 function currentWeather(response) {
   console.log("response", response);
-  celsiusTemp = response.data.main.temp;
+  celsiusTemperature = response.data.main.temp;
   let weather = document.querySelector(".temp");
-  weather.innerHTML = ` ${Math.round(response.data.main.temp)}°C`;
+  weather.innerHTML = ` ${Math.round(response.data.main.temp)}`;
   let h1 = document.querySelector("h1");
   h1.innerHTML = response.data.name;
   let date = document.querySelector(".date");
@@ -183,4 +185,4 @@ fahrenheitTemp.addEventListener("click", convertToFahrenheit);
 let celsiusTemp = document.querySelector(".celsius");
 celsiusTemp.addEventListener("click", convertToCelsius);
 
-searchCity("Paris");
+searchCity("Dublin");
