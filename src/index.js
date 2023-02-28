@@ -157,32 +157,4 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayForecast);
 }
 
-function convertToFahrenheit(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector(".temp");
-  celsiusTemp.classList.remove("active");
-  fahrenheitTemp.classList.add("active");
-  let fahrenheitTemperature = (temperatureElement.innerHTML * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-  let temperatureUnit = document.querySelector(".unit");
-  temperatureUnit.innerHTML = "°F";
-}
-
-function convertToCelsius(event) {
-  event.preventDefault();
-  celsiusTemp.classList.add("active");
-  fahrenheitTemp.classList.remove("active");
-  let temperatureElement = document.querySelector(".temp");
-  temperatureElement.innerHTML = Math.round(celsiusTemperature);;
-  let temperatureUnit = document.querySelector(".unit");
-  temperatureUnit.innerHTML = "°C";
-}
-let celsiusTemperature = null;
-
-let fahrenheitTemp = document.querySelector(".fahrenheit");
-fahrenheitTemp.addEventListener("click", convertToFahrenheit);
-
-let celsiusTemp = document.querySelector(".celsius");
-celsiusTemp.addEventListener("click", convertToCelsius);
-
 searchCity("Dublin");
