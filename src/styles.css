@@ -22,6 +22,7 @@ body {
   font-family: 'Rowdies', cursive;
   background-color: #dfe4e6;
   position: relative;
+  max-width: 800px;
 }
 
 .current-temp {
@@ -126,4 +127,5 @@ form {
 
 footer {
   text-align: center;
+  color: black;
 }
